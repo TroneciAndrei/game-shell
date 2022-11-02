@@ -1,9 +1,23 @@
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Home, ForOhFour, Play } from "./pages";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home></Home>,
+  },
+  {
+    path: "/play",
+    element: <Play></Play>,
+  },
+  {
+    path: "*",
+    element: <ForOhFour />,
+  },
+]);
+
 function App() {
-  return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">hello</h1>
-    </div>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;

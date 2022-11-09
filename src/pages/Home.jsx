@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/common/ui";
 import { Layout } from "../layouts";
 import { add, sub } from "../store/actions";
-import { setUser } from "../store/actions/authActions";
+import { logIn } from "../store/actions/authActions";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ export const Home = () => {
           <button
             type="button"
             onClick={() => {
-              dispatch(setUser());
+              dispatch(logIn());
             }}
           >
             Set Carol

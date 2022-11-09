@@ -9,7 +9,7 @@ export const authReducer = (state = initialState, action) => {
 
   switch (type) {
     case "auth/setUser":
-      // exteremely explicit
+      // extremely explicit
       const newState = {
         user: {
           name: payload.name,
@@ -19,16 +19,14 @@ export const authReducer = (state = initialState, action) => {
         established: state.established,
       };
 
-      //   const { name, surname } = payload;
-      //   return {
-      //     ...state,
-      //     user: {
-      //       name,
-      //       surname,
-      //     },
-      //     authenticated: true,
-      //   };
       return newState;
+    case "auth/logOut":
+      return {
+        ...state,
+        authenticated: false,
+        established: false,
+        user: {},
+      };
     default:
       return state;
   }

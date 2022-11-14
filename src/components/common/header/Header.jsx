@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { unsetUser } from "../../../store/actions/authActions";
 import { GoogleLogin } from "../../auth";
 import { Button } from "../ui";
+import { RiUser5Fill } from "react-icons/ri";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -24,16 +25,24 @@ export const Header = () => {
 
       <div>
         {authenticated ? (
-          <Button
-            type="button"
-            onClick={() => {
-              dispatch(unsetUser());
-            }}
-            skin="primaryInverted"
-            title="Log Out"
-          >
-            Log Out
-          </Button>
+          <div className="flex gap-2">
+            <Link to="/profile" title="Profile">
+              <Button element="span">
+                <RiUser5Fill className="inline-block" />
+              </Button>
+            </Link>
+
+            <Button
+              type="button"
+              onClick={() => {
+                dispatch(unsetUser());
+              }}
+              skin="primaryInverted"
+              title="Log Out"
+            >
+              Log Out
+            </Button>
+          </div>
         ) : (
           <GoogleLogin></GoogleLogin>
         )}

@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Home, ForOhFour, Play } from "./pages";
+import { Home, ForOhFour, Play, Profile } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -9,6 +9,10 @@ const router = createBrowserRouter([
   {
     path: "/play",
     element: <Play></Play>,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
   {
     path: "*",

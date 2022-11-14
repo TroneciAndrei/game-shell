@@ -1,22 +1,47 @@
-let initialize = false;
+import jwtDecode from "jwt-decode";
+import store from "../store";
+import { setUser } from "../store/actions/authActions";
+
+let initialized = false;
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export const initializeGoogleAuth = async () => {
   return new Promise((resolve) => {
-    if (initialize) {
+    if (initialized) {
       return;
     }
 
     window.addEventListener("load", () => {
       /*global google */
       google.accounts.id.initialize({
-        client_id:
-          "661582356448-9gess85i2etpd3l9rh8pendjrl4am79m.apps.googleusercontent.com",
+        client_id: clientId,
         callback: (response) => {
-          console.log(response);
+          // console.log(response);
+          // console.log(jwtDecode(response.credential));
+          const {
+            given_name: firstName,
+            family_name: lastName,
+            email,
+            picture: avatar,
+            sub: id,
+            name,
+          } = jwtDecode(response.credential);
+
+          store.dispatch(
+            setUser({
+              firstName,
+              lastName,
+              email,
+              avatar,
+              id,
+              name,
+            })
+          );
         },
+        scope: "email profile",
       });
       resolve();
-      initialize = true;
+      initialized = true;
     });
   });
 };

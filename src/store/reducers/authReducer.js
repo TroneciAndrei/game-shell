@@ -1,5 +1,12 @@
 const initialState = {
-  user: {},
+  user: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    avatar: "",
+    id: "",
+    name: "",
+  },
   established: true, //change to false when we add google
   authenticated: false,
 };
@@ -11,21 +18,16 @@ export const authReducer = (state = initialState, action) => {
     case "auth/setUser":
       // extremely explicit
       const newState = {
-        user: {
-          name: payload.name,
-          surname: payload.surname,
-        },
+        user: payload,
         authenticated: true,
         established: state.established,
       };
 
       return newState;
-    case "auth/logOut":
+    case "auth/unsetUser":
       return {
-        ...state,
-        authenticated: false,
-        established: false,
-        user: {},
+        // warning shallow copy
+        ...initialState,
       };
     default:
       return state;

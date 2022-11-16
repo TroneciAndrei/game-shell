@@ -1,5 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { GrUserExpert } from "react-icons/gr";
+import { HiOutlineMail } from "react-icons/hi";
 
 export const UserProfile = () => {
   const { name, avatar, email } = useSelector(({ auth }) => {
@@ -18,9 +20,15 @@ export const UserProfile = () => {
           <img src={avatar} alt={name} />
         </picture>
 
-        <ul>
-          <li>{name}</li>
-          <li>{email}</li>
+        <ul className="border rounded-md shadow flex-grow">
+          <li className="border-b p-3">
+            <GrUserExpert className="mr-2 inline-block" />
+            {name}
+          </li>
+          <li className="border-b p-3">
+            <HiOutlineMail className="mr-2 inline-block" />
+            {email}
+          </li>
         </ul>
       </div>
     </>

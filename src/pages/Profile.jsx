@@ -1,8 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Button } from "../components/common/ui";
 import { AuthorizedLayout, Layout } from "../layouts";
+import { deleteUserProfile } from "../store/actions/profileActions/profileActions";
 import { Creature, ProfileForm, UserProfile } from "./../components/profile";
 
 export const Profile = () => {
+  const dispatch = useDispatch();
+
   return (
     <Layout>
       {/* switch layout demo */}
@@ -24,6 +29,19 @@ export const Profile = () => {
 
           <section className="mt-4 lg:w-1/4 lg:mt-12 mx-auto">
             <ProfileForm></ProfileForm>
+          </section>
+
+          <section className="mt-4">
+            <Button
+              skin="primaryInverted"
+              title="Delete Profile"
+              type="button"
+              onClick={() => {
+                dispatch(deleteUserProfile());
+              }}
+            >
+              Delete Profile
+            </Button>
           </section>
         </div>
       </AuthorizedLayout>

@@ -1,14 +1,29 @@
 import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCreatureColor } from "../../store/actions/profileActions/profileActions";
+import {
+  setCreatureColor,
+  updateUserProfile,
+} from "../../store/actions/profileActions/profileActions";
 import { Button } from "../common/ui";
+import { TbDeviceFloppy, TbFidgetSpinner } from "react-icons/tb";
 
 export const ProfileForm = () => {
   const dispatch = useDispatch();
+  const [busy, setBusy] = useState(false);
+
   const { mainColor, eyeColor, secondaryColor } = useSelector(({ profile }) => {
     const { mainColor, eyeColor, secondaryColor } = profile.creature;
 
     return { mainColor, eyeColor, secondaryColor };
+  });
+
+  const { userId } = useSelector(({ auth }) => {
+    const { user } = auth;
+
+    return {
+      userId: user.id,
+    };
   });
 
   const onColorPickerChange = (event) => {
@@ -19,8 +34,19 @@ export const ProfileForm = () => {
     dispatch(setCreatureColor(targetKey, colorValue));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+
+    setBusy(true);
+    await dispatch(
+      updateUserProfile(userId, {
+        mainColor,
+        eyeColor,
+        secondaryColor,
+      })
+    );
+
+    setBusy(false);
   };
 
   return (
@@ -62,8 +88,21 @@ export const ProfileForm = () => {
       </div>
 
       <div className="text-center">
-        <Button type="submit" title="Save">
-          save
+        <Button
+          className="flex gap-2 items-center"
+          type="submit"
+          title="Save"
+          disabled={busy}
+        >
+          {busy ? (
+            <>
+              <TbFidgetSpinner className=" animate-spin" /> Saving
+            </>
+          ) : (
+            <>
+              <TbDeviceFloppy /> Save
+            </>
+          )}
         </Button>
       </div>
     </form>

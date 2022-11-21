@@ -10,13 +10,14 @@ const skins = {
 export const Button = ({
   element = "button",
   skin = "primary",
+  className = "",
   children,
   ...props
 }) => {
   const Element = element;
 
   return (
-    <Element {...props} className={skins[skin]}>
+    <Element {...props} className={`${skins[skin]} ${className}`}>
       {children}
     </Element>
   );
